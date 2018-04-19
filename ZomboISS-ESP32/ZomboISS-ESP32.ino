@@ -28,8 +28,8 @@
 WiFiMulti wifiMulti;
 //Find your Latitude and Longitude here
 //https://www.latlong.net/
-float mylat = 39.50;//middle of america
-float mylon = -98.35;//middle of america
+float mylat = 40.573922;
+float mylon = -105.083303;
 float isslat, isslon;
 int distance, number, count;
 String payload;
@@ -50,7 +50,7 @@ void setup() {
         delay(1000);
     }
 
-    wifiMulti.addAP("SSID", "PASSWORD");
+    wifiMulti.addAP("Zombo", "thepromisedlan");
 //    WiFiManager wifiManager;
   display.init();
 
@@ -215,7 +215,7 @@ void decodePassJson() {
  }
 
  String convertEpoch(unsigned int epoch) {
-  int h = hour(epoch)-6;//minus six for UTC to MST
+  int h = hour(epoch)-6;
   int m = minute(epoch);
   int d = day(epoch);
   int mn = month(epoch);
