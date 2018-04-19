@@ -50,7 +50,7 @@ void setup() {
         delay(1000);
     }
 
-    wifiMulti.addAP("SSID", "Password");
+    wifiMulti.addAP("SSID", "PASS");
 //    WiFiManager wifiManager;
   display.init();
 
