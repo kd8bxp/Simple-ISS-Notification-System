@@ -50,7 +50,7 @@ void setup() {
         delay(1000);
     }
 
-    wifiMulti.addAP("Zombo", "thepromisedlan");
+    wifiMulti.addAP("SSID", "Password");
 //    WiFiManager wifiManager;
   display.init();
 
