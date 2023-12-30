@@ -12,6 +12,9 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses>
+
+Updated: Dec 30, 2023 - removed pass prediction issue #1
+
  */
 
 #include <Arduino.h>
@@ -36,7 +39,7 @@ float duration[5];
  
 const String iss = "http://api.open-notify.org/iss-now.json"; 
 const String ppl = "http://api.open-notify.org/astros.json";
-String pas = "http://api.open-notify.org/iss-pass.json?";
+
 
 SSD1306  display(0x3c, D1, D2); 
 
@@ -48,8 +51,7 @@ void setup() {
   display.setFont(ArialMT_Plain_10);
    WiFiManager wifiManager;
     wifiManager.autoConnect("AutoConnectAP");
-  pas = pas + "lat=" + (String)mylat+"&lon="+ (String)mylon;
-  Serial.println(pas);
+  
 }
 
 void loop() {
@@ -61,13 +63,6 @@ void loop() {
  issLocOLEDDisplay();
  issLocSerialDisplay();
  delay(5000);
- 
-  
-  getJson(pas);
-  decodePassJson();
-  displayPassSerial();
-  displayPassOLED();
-  delay(5000);
   
  getJson(ppl);
  decodePeopleJson();
@@ -183,50 +178,4 @@ void decodePeopleJson() {
  display.display();
 }
 
-void decodePassJson() {
-  DynamicJsonBuffer jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(payload);
-  if (!root.success()) {
-    Serial.println("parseObject() failed");
-    return;
-  }
-  count = root["request"]["passes"];
-  
-  if (count > 5) {count = 5;}
-  for (int i=0;i<count; i++){
-    
-    unsigned int tempEpoch = root["response"][i]["risetime"];
-    risetime[i] = convertEpoch(tempEpoch);
-    duration[i] = root["response"][i]["duration"];
-    duration[i] = duration[i] / 60;
-      }
- }
 
- String convertEpoch(unsigned int epoch) {
-  int h = hour(epoch);
-  int m = minute(epoch);
-  int d = day(epoch);
-  int mn = month(epoch);
-  int y = year(epoch);
-   char temp[100];
-  sprintf(temp, "RT: %d/%d %d:%d UTC",mn,d,h,m);
-  return (String)temp;
- }
-
-void displayPassSerial() {
-  Serial.println("Pass Prediction");
-  for (int i=0;i<count; i++) {
-    Serial.print(risetime[i]); Serial.print(" [");Serial.print(duration[i]);Serial.println(" mins.]");
-  }
-}
-
- void displayPassOLED() {
-  display.clear();
-  display.drawString(0,0,"Pass Prediction");
-
- for (int i=0;i<count; i++) {
- display.drawString(0,10*(i+1),risetime[i] + " [" + (String)duration[i]+" m]");
- }
-  
- display.display();
-}

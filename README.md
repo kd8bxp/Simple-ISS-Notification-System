@@ -57,7 +57,7 @@ Google Home & Dweet.io video https://youtu.be/d3GBDp08U_U
 
 If you find this or any of my projects useful or enjoyable please support me.  
 Anything I do get goes to buy more parts and make more/better projects.  
-https://www.patreon.com/kd8bxp  
+
 https://ko-fi.com/lfmiller  
 
 ## Other Projects
@@ -68,7 +68,8 @@ https://kd8bxp.blogspot.com/
 
 ## Credits
 
-Copyright (c) 2018 LeRoy Miller
+Copyright (c) 2018 LeRoy Miller  
+Copyright (c) 2023 LeRoy Miller  
 
 ## License
 
